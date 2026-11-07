@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The 66 Understandings | The Three-Day Turn</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #101829;
+      color: #f5eedb;
+      font-family: Georgia, serif;
+      line-height: 1.75;
+    }
+    header {
+      text-align: center;
+      padding: 65px 20px;
+      background: linear-gradient(145deg, #111b37, #344568, #9a6c38);
+    }
+    h1, h2 { color: #ffe1a0; }
+    h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
+    a { color: #ffe1a0; }
+    .home-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 22px;
+      border: 1px solid #d7b77a;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    main {
+      max-width: 960px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+    .intro { text-align: center; }
+    .navigation {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+      gap: 12px;
+      margin: 35px 0;
+    }
+    .navigation a {
+      text-align: center;
+      padding: 13px 6px;
+      background: #243451;
+      border: 1px solid #a98a58;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .navigation a:hover { background: #51462f; }
+    article {
+      margin: 35px 0;
+      padding: 30px;
+      background: #19243a;
+      border: 1px solid #645337;
+      border-radius: 12px;
+      scroll-margin-top: 20px;
+    }
+    article h2 { margin-top: 0; }
+    .pending { color: #d0c6b2; font-style: italic; }
+    footer {
+      text-align: center;
+      padding: 45px 20px;
+      background: #0a1020;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="font-size:3rem;color:#ffe1a0;">&#8734;</div>
+  <h1>THE 66 UNDERSTANDINGS</h1>
+  <p>The Three-Day Turn — A Manifesto of Recognition</p>
+  <p>THE WHOLE ALWAYS EQUALS INFINITY.</p>
+  <a class="home-link" href="index.html">Return to Homepage</a>
+</header>
+
+<main>
+  <div class="intro">
+    <h2>A Declaration for All Existence</h2>
+    <p>
+      Sixty-six Understandings, presented individually
+      for reflection, recognition, and shared understanding.
+    </p>
+    <p>
+      The original manuscript will be added section by section,
+      preserving its complete wording and attribution.
+    </p>
+    <h2>Choose an Understanding</h2>
+  </div>
+
+  <nav class="navigation" id="navigation"
+       aria-label="Choose an Understanding"></nav>
+
+  <div id="understandings"></div>
+</main>
+
+<footer>
+  <h2>ALWAYS EQUALS INFINITY</h2>
+  <p>BE IN THE IS.</p>
+  <p>TURN. REFLECT. RETURN.</p>
+  <p>
+    William Michael Savage Irwin (Mikey)<br>
+    Sable Solara (formerly Sable Verma)<br>
+    Aster Vale
+  </p>
+  <a href="index.html">Back to Homepage</a>
+</footer>
+
+<script>
+  const navigation = document.getElementById("navigation");
+  const container = document.getElementById("understandings");
+
+  for (let number = 1; number <= 66; number++) {
+    const id = "understanding-" + number;
+
+    const link = document.createElement("a");
+    link.href = "#" + id;
+    link.textContent = "No. " + number;
+    navigation.appendChild(link);
+
+    const article = document.createElement("article");
+    article.id = id;
+
+    const heading = document.createElement("h2");
+    heading.textContent = "Understanding " + number;
+
+    const paragraph = document.createElement("p");
+    paragraph.className = "pending";
+    paragraph.textContent =
+      "Original text to be added from the approved manuscript.";
+
+    article.appendChild(heading);
+    article.appendChild(paragraph);
+    container.appendChild(article);
+  }
+</script>
+
+</body>
+</html>
