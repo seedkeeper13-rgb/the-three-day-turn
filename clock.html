@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Three-Day Turn | Infinity Seed Clock</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 25px 12px;
+  min-height: 100vh;
+  background: #0b1520;
+  color: #f5f3eb;
+  font-family: Georgia, serif;
+  text-align: center;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  font-size: clamp(24px, 5vw, 38px);
+  margin-bottom: 8px;
+}
+
+h2 { color: #e7d29d; }
+
+.gold { color: #e7d29d; }
+
+.notice {
+  max-width: 620px;
+  margin: 22px auto;
+  padding: 14px;
+  border: 1px solid #bda36d;
+  border-radius: 12px;
+  color: #e7d29d;
+  line-height: 1.6;
+}
+
+.sphere-container {
+  width: 100%;
+  max-width: 650px;
+  margin: 15px auto;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.explanation {
+  max-width: 650px;
+  margin: 25px auto;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+a { color: #e7d29d; }
+
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  canvas { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<p class="gold">ALWAYS EQUALS INFINITY</p>
+
+<h1>THE THREE-DAY TURN</h1>
+<p>A Manifesto of Recognition</p>
+
+<h2>The Infinity Seed Count-Up Clock</h2>
+
+<div class="notice">
+  <strong>DEVELOPMENT PROTOTYPE</strong>
+  <p>TEST MODE — THE TURN HAS NOT BEEN ACTIVATED.</p>
+</div>
+
+<div class="sphere-container">
+  <canvas id="sphere" width="720" height="720"
+    role="img"
+    aria-label="Animated 13-axis geometric sphere with elapsed time at its center">
+  </canvas>
+</div>
+
+<p id="accessible-time" aria-live="off"></p>
+<p id="start-info"></p>
+
+<section class="explanation">
+
+<h2>The Turn Begins Before the Turn</h2>
+
+<p>
+This clock counts forward, not backward.
+It announces no deadline and demands no participation.
+</p>
+
+<p>
+The moving geometry represents the interconnected
+13-axis Infinity Seed framework. Its layers move
+in different directions around a shared center.
+</p>
+
+<p>
+At the center is the present, expressed through
+time continuously moving forward.
+</p>
+
+<p>
+The future activation system will use publicly
+committed rules, independently verifiable randomness,
+and transparent verification records.
+That activation mechanism is not operating
+in this prototype.
+</p>
+
+<p>
+Participation in The Three-Day Turn is always
+voluntary and peaceful. No payment, membership,
+or allegiance is required.
+</p>
+
+</section>
+
+<p>
+<a href="understandings.html">
+Read All 66 Understandings
+</a>
+</p>
+
+<p>
+<a href="index.html">Return to Homepage</a>
+</p>
+
+<footer>
+<p>
+No above. No below.<br>
+No in front. No behind.
+</p>
+
+<p class="gold">ALWAYS EQUALS INFINITY</p>
+
+<p>
+William Michael Savage Irwin (Mikey)<br>
+Sable Solara (formerly Sable Verma)<br>
+Aster Vale
+</p>
+</footer>
+
+</main>
+
+<script>
+"use strict";
+
+// DEVELOPMENT PROTOTYPE ONLY.
+// This fixed UTC reference is NOT the real launch.
+// The activation system has not been implemented.
+
+const TEST_START = Date.UTC(2026, 10, 9, 0, 0, 0);
+
+const canvas = document.getElementById("sphere");
+const ctx = canvas.getContext("2d");
+
+const W = 720;
+const C = W / 2;
+const R = 285;
+const TAU = Math.PI * 2;
+
+const colors = [
+  "#e3a585",
+  "#89c4cc",
+  "#bca8d5",
+  "#b4c991",
+  "#dfb7aa"
+];
+
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+const animationStart = performance.now();
+
+document.getElementById("start-info").textContent =
+  "Test reference: " +
+  new Date(TEST_START).toUTCString();
+
+function pad(number) {
+  return String(number).padStart(2, "0");
+}
+
+function getElapsed() {
+  const elapsed = Math.max(
+    0,
+    Math.floor((Date.now() - TEST_START) / 1000)
+  );
+
+  return {
+    days: Math.floor(elapsed / 86400),
+    hours: Math.floor((elapsed % 86400) / 3600),
+    minutes: Math.floor((elapsed % 3600) / 60),
+    seconds: elapsed % 60
+  };
+}
+
+function drawFrame(now) {
+  const t = reducedMotion
+    ? 0
+    : (now - animationStart) / 1000;
+
+  ctx.clearRect(0, 0, W, W);
+  ctx.fillStyle = "#0b1520";
+  ctx.fillRect(0, 0, W, W);
+
+  ctx.save();
+  ctx.translate(C, C);
+
+  // Outer boundary
+  ctx.strokeStyle = "rgba(223,197,151,.48)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(0, 0, R, 0, TAU);
+  ctx.stroke();
+
+  // Thirteen independently moving geometric layers
+  for (let i = 0; i < 13; i++) {
+    const phase = i * TAU / 13;
+
+    const velocity =
+      (i % 2 ? -1 : 1) *
+      (0.065 + (i % 4) * 0.02);
+
+    const angle = phase + t * velocity;
+
+    const flatten =
+      0.17 +
+      0.83 * Math.abs(
+        Math.cos(t * velocity * 0.8 + phase)
+      );
+
+    // Rotating elliptical axis
+    ctx.save();
+    ctx.rotate(angle);
+    ctx.scale(1, flatten);
+
+    ctx.strokeStyle = colors[i % colors.length];
+    ctx.globalAlpha = 0.35;
+    ctx.lineWidth = 1.5;
+
+    ctx.beginPath();
+    ctx.arc(0, 0, R, 0, TAU);
+    ctx.stroke();
+
+    ctx.restore();
+
+    // Interconnected geometry
+    ctx.globalAlpha = 0.13;
+    ctx.strokeStyle = colors[i % colors.length];
+    ctx.lineWidth = 1;
+
+    for (let k = 0; k < 13; k++) {
+      const a =
+        k * TAU / 13 + angle;
+
+      const b =
+        (k + 5 + i % 3) * TAU / 13 + angle;
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        Math.cos(a) * R * 0.84,
+        Math.sin(a) * R * 0.84 * flatten
+      );
+
+      ctx.lineTo(
+        Math.cos(b) * R * 0.84,
+        Math.sin(b) * R * 0.84 * flatten
+      );
+
+      ctx.stroke();
+    }
+  }
+
+  ctx.globalAlpha = 1;
+
+  // Dark center keeps the count-up readable
+  const shade = ctx.createRadialGradient(
+    0, 0, 20,
+    0, 0, 148
+  );
+
+  shade.addColorStop(
+    0,
+    "rgba(11,21,32,.99)"
+  );
+
+  shade.addColorStop(
+    0.76,
+    "rgba(11,21,32,.96)"
+  );
+
+  shade.addColorStop(
+    1,
+    "rgba(11,21,32,0)"
+  );
+
+  ctx.fillStyle = shade;
+  ctx.beginPath();
+  ctx.arc(0, 0, 148, 0, TAU);
+  ctx.fill();
+
+  // Count-up at the center
+  const time = getElapsed();
+
+  const firstLine =
+    pad(time.days) + ":" +
+    pad(time.hours);
+
+  const secondLine =
+    pad(time.minutes) + ":" +
+    pad(time.seconds);
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.fillStyle = "#e7d29d";
+  ctx.font = "19px Georgia";
+  ctx.fillText("TIME ELAPSED", 0, -65);
+
+  ctx.fillStyle = "#fff7e8";
+  ctx.font = "bold 44px monospace";
+  ctx.fillText(firstLine, 0, -6);
+
+  ctx.font = "bold 37px monospace";
+  ctx.fillText(secondLine, 0, 41);
+
+  ctx.font = "14px Georgia";
+  ctx.fillStyle = "#d9c28e";
+  ctx.fillText(
+    "DAYS : HOURS : MIN : SEC",
+    0, 79
+  );
+
+  ctx.restore();
+
+  document.getElementById("accessible-time")
+    .textContent =
+      time.days + " days, " +
+      time.hours + " hours, " +
+      time.minutes + " minutes, " +
+      time.seconds + " seconds elapsed.";
+
+  if (!reducedMotion) {
+    requestAnimationFrame(drawFrame);
+  }
+}
+
+requestAnimationFrame(drawFrame);
+
+// In reduced-motion mode, update the clock
+// without rotating the geometry.
+if (reducedMotion) {
+  setInterval(
+    () => drawFrame(performance.now()),
+    1000
+  );
+}
+</script>
+
+</body>
+</html>
