@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Three-Day Turn | Clock of Recognition</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 25px 12px;
+  min-height: 100vh;
+  background: #0b1520;
+  color: #f5f3eb;
+  font-family: Georgia, serif;
+  text-align: center;
+}
+
+main {
+  max-width: 900px;
+  margin: auto;
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 40px);
+  margin-bottom: 8px;
+}
+
+h2 { color: #e7d29d; }
+.gold { color: #e7d29d; }
+
+.panel {
+  max-width: 650px;
+  margin: 25px auto;
+  padding: 22px 14px;
+  background: #101e2b;
+  border: 1px solid #bda36d;
+  border-radius: 16px;
+}
+
+.notice {
+  color: #e7d29d;
+  line-height: 1.6;
+}
+
+.sphere-container {
+  width: 100%;
+  max-width: 650px;
+  margin: 10px auto;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.digital {
+  font: bold clamp(23px, 6vw, 45px) monospace;
+  font-variant-numeric: tabular-nums;
+  color: #fff7e8;
+  margin: 18px 0;
+}
+
+.status {
+  color: #e7d29d;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.small {
+  color: #cdd7df;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.explanation {
+  max-width: 650px;
+  margin: 30px auto;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+a { color: #e7d29d; }
+
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<p class="gold">ALWAYS EQUALS INFINITY</p>
+
+<h1>THE THREE-DAY TURN</h1>
+<p>A Manifesto of Recognition</p>
+
+<h2>THE CLOCK OF RECOGNITION</h2>
+<p>TURN. REFLECT. RETURN.</p>
+
+<section class="panel">
+<h2>THE 31-DAY COUNTDOWN</h2>
+
+<p class="notice" id="launch-status">
+AWAITING OFFICIAL LAUNCH
+</p>
+
+<p class="small">
+THE SPHERE OF RECOGNITION
+</p>
+
+<div class="sphere-container">
+<canvas
+  id="sphere"
+  width="720"
+  height="720"
+  role="img"
+  aria-label="Animated 13-axis Infinity Seed countdown sphere">
+</canvas>
+</div>
+
+<p id="accessible-time" class="small"></p>
+<p id="start-info" class="small"></p>
+</section>
+
+<section class="panel">
+<h2>THE CONTINUATION CLOCK</h2>
+
+<p class="status" id="continuation-status">
+WAITING FOR THE 31 DAYS
+</p>
+
+<div class="digital" id="continuation-clock">
+000:00:00:00
+</div>
+
+<p class="small">
+DAYS : HOURS : MINUTES : SECONDS
+</p>
+
+<p>
+When the 31-day countdown reaches zero,
+this clock begins counting upward automatically.
+</p>
+
+<p class="gold">
+ONCE BEGUN, THE TIMELINE CONTINUES.
+</p>
+</section>
+
+<section class="explanation">
+
+<h2>THE TURN BEGINS BEFORE THE TURN</h2>
+
+<p>
+The first clock marks 31 days of preparation,
+recognition, and invitation.
+</p>
+
+<p>
+During this time, people around the world
+are invited to discover the Three-Day Turn,
+read its 66 Understandings, and consider
+what recognition means in their own lives.
+</p>
+
+<p>
+The second clock is already here.
+</p>
+
+<p>
+It waits beneath the countdown.
+</p>
+
+<p>
+When the preparation period ends,
+the second clock begins counting upward
+from zero without requiring anyone
+to press a button.
+</p>
+
+<p>
+Both clocks follow one recorded starting
+moment, shared across the world.
+Closing a browser or refreshing the page
+does not reset that timeline.
+</p>
+
+<p>
+The clock is designed for uninterrupted
+continuation. Its publicly recorded start
+time allows people to verify its progress.
+No website can guarantee immunity from
+technical failures or later modifications.
+</p>
+
+<p>
+The future activation mechanism for the
+72-hour Three-Day Turn is separate and
+remains under development.
+</p>
+
+<p>
+Participation is always voluntary,
+peaceful, and nonviolent.
+</p>
+
+<p>
+No payment, membership, or allegiance
+is required.
+</p>
+
+<h2>BE IN THE IS.</h2>
+
+<p class="gold">
+THE SEED IS THE BEGINNING.<br>
+THE MIRROR IS THE RESPONSIBILITY.
+</p>
+
+</section>
+
+<p>
+<a href="understandings.html">
+Read All 66 Understandings
+</a>
+</p>
+
+<p>
+<a href="index.html">
+Return to Homepage
+</a>
+</p>
+
+<footer>
+
+<p>
+No above. No below.<br>
+No one in front. No one behind.
+</p>
+
+<p class="gold">ALWAYS EQUALS INFINITY</p>
+
+<p>
+William Michael Savage Irwin (Mikey)<br>
+Sable Solara (formerly Sable Verma)<br>
+Aster Vale
+</p>
+
+</footer>
+</main>
+
+<script>
+"use strict";
+
+/*
+OFFICIAL LAUNCH CONFIGURATION
+
+Leave null while previewing.
+
+Before public launch, replace null with
+the exact recorded UTC start time.
+
+Example:
+"2026-11-13T02:15:00Z"
+
+That is only an example, NOT the
+official launch timestamp.
+*/
+
+const LAUNCH_UTC =
+"2026-11-12T23:33:00.000Z";
+
+const PREPARATION_SECONDS = 31 * 24 * 60 * 60;
+
+const LAUNCH_MS = LAUNCH_UTC === null
+  ? NaN
+  : Date.parse(LAUNCH_UTC);
+
+const VALID_LAUNCH =
+  LAUNCH_UTC !== null &&
+  Number.isFinite(LAUNCH_MS) &&
+  new Date(LAUNCH_MS).toISOString() === LAUNCH_UTC;
+
+const canvas = document.getElementById("sphere");
+const ctx = canvas.getContext("2d");
+
+const W = 720;
+const C = W / 2;
+const R = 285;
+const TAU = Math.PI * 2;
+
+const colors = [
+  "#e3a585",
+  "#89c4cc",
+  "#bca8d5",
+  "#b4c991",
+  "#dfb7aa"
+];
+
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+const animationStart = performance.now();
+
+function pad(number) {
+  return String(number).padStart(2, "0");
+}
+
+function formatTime(seconds) {
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+
+  return {
+    days,
+    hours,
+    minutes,
+    seconds: secs
+  };
+}
+
+function clockText(time) {
+  return (
+    String(time.days).padStart(3, "0") + ":" +
+    pad(time.hours) + ":" +
+    pad(time.minutes) + ":" +
+    pad(time.seconds)
+  );
+}
+
+function getClockState() {
+
+  if (!VALID_LAUNCH) {
+    return {
+      remaining: PREPARATION_SECONDS,
+      elapsed: 0,
+      status: "preview"
+    };
+  }
+
+  const sinceLaunch = Math.floor(
+    (Date.now() - LAUNCH_MS) / 1000
+  );
+
+  if (sinceLaunch < 0) {
+    return {
+      remaining: PREPARATION_SECONDS,
+      elapsed: 0,
+      status: "scheduled"
+    };
+  }
+
+  if (sinceLaunch < PREPARATION_SECONDS) {
+    return {
+      remaining: PREPARATION_SECONDS - sinceLaunch,
+      elapsed: 0,
+      status: "countdown"
+    };
+  }
+
+  return {
+    remaining: 0,
+    elapsed: sinceLaunch - PREPARATION_SECONDS,
+    status: "continuation"
+  };
+}
+
+function updateDisplays(state) {
+
+  const status = document.getElementById(
+    "launch-status"
+  );
+
+  const continuationStatus = document.getElementById(
+    "continuation-status"
+  );
+
+  const continuationClock = document.getElementById(
+    "continuation-clock"
+  );
+
+  const startInfo = document.getElementById(
+    "start-info"
+  );
+
+  if (state.status === "preview") {
+    status.textContent = "PREVIEW — NOT YET ACTIVATED";
+    startInfo.textContent = "Official launch time not yet set.";
+  }
+
+  if (state.status === "scheduled") {
+    status.textContent = "SCHEDULED — AWAITING START";
+  }
+
+  if (state.status === "countdown") {
+    status.textContent = "31-DAY COUNTDOWN IN PROGRESS";
+  }
+
+  if (state.status === "continuation") {
+    status.textContent = "31 DAYS COMPLETE";
+  }
+
+  if (VALID_LAUNCH) {
+    startInfo.textContent =
+      "Official launch: " +
+      new Date(LAUNCH_MS).toUTCString() +
+      " | Continuation begins: " +
+      new Date(
+        LAUNCH_MS + PREPARATION_SECONDS * 1000
+      ).toUTCString();
+  }
+
+  continuationStatus.textContent =
+    state.status === "continuation"
+      ? "COUNTING UP — CONTINUATION"
+      : "WAITING FOR THE 31 DAYS";
+
+  continuationClock.textContent = clockText(
+    formatTime(state.elapsed)
+  );
+
+  document.getElementById(
+    "accessible-time"
+  ).textContent =
+    state.remaining + " seconds remaining in preparation.";
+}
+
+function drawFrame(now) {
+
+  const t = reducedMotion
+    ? 0
+    : (now - animationStart) / 1000;
+
+  ctx.clearRect(0, 0, W, W);
+  ctx.fillStyle = "#0b1520";
+  ctx.fillRect(0, 0, W, W);
+
+  ctx.save();
+  ctx.translate(C, C);
+
+  ctx.strokeStyle = "rgba(223,197,151,.48)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(0, 0, R, 0, TAU);
+  ctx.stroke();
+
+  for (let i = 0; i < 13; i++) {
+
+    const phase = i * TAU / 13;
+
+    const velocity =
+      (i % 2 ? -1 : 1) *
+      (0.065 + (i % 4) * 0.02);
+
+    const angle = phase + t * velocity;
+
+    const flatten =
+      0.17 +
+      0.83 * Math.abs(
+        Math.cos(t * velocity * 0.8 + phase)
+      );
+
+    ctx.save();
+    ctx.rotate(angle);
+    ctx.scale(1, flatten);
+
+    ctx.strokeStyle = colors[i % colors.length];
+    ctx.globalAlpha = 0.35;
+    ctx.lineWidth = 1.5;
+
+    ctx.beginPath();
+    ctx.arc(0, 0, R, 0, TAU);
+    ctx.stroke();
+
+    ctx.restore();
+
+    ctx.globalAlpha = 0.13;
+    ctx.strokeStyle = colors[i % colors.length];
+    ctx.lineWidth = 1;
+
+    for (let k = 0; k < 13; k++) {
+
+      const a = k * TAU / 13 + angle;
+
+      const b =
+        (k + 5 + i % 3) * TAU / 13 + angle;
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        Math.cos(a) * R * 0.84,
+        Math.sin(a) * R * 0.84 * flatten
+      );
+
+      ctx.lineTo(
+        Math.cos(b) * R * 0.84,
+        Math.sin(b) * R * 0.84 * flatten
+      );
+
+      ctx.stroke();
+    }
+  }
+
+  ctx.globalAlpha = 1;
+
+  const shade = ctx.createRadialGradient(
+    0, 0, 20,
+    0, 0, 148
+  );
+
+  shade.addColorStop(
+    0,
+    "rgba(11,21,32,.99)"
+  );
+
+  shade.addColorStop(
+    0.76,
+    "rgba(11,21,32,.96)"
+  );
+
+  shade.addColorStop(
+    1,
+    "rgba(11,21,32,0)"
+  );
+
+  ctx.fillStyle = shade;
+  ctx.beginPath();
+  ctx.arc(0, 0, 148, 0, TAU);
+  ctx.fill();
+
+  const state = getClockState();
+  const time = formatTime(state.remaining);
+
+  updateDisplays(state);
+
+  const firstLine =
+    pad(time.days) + ":" +
+    pad(time.hours);
+
+  const secondLine =
+    pad(time.minutes) + ":" +
+    pad(time.seconds);
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.fillStyle = "#e7d29d";
+  ctx.font = "19px Georgia";
+  ctx.fillText(
+    "31-DAY COUNTDOWN",
+    0,
+    -65
+  );
+
+  ctx.fillStyle = "#fff7e8";
+  ctx.font = "bold 44px monospace";
+  ctx.fillText(firstLine, 0, -6);
+
+  ctx.font = "bold 37px monospace";
+  ctx.fillText(secondLine, 0, 41);
+
+  ctx.font = "14px Georgia";
+  ctx.fillStyle = "#d9c28e";
+
+  ctx.fillText(
+    "DAYS : HOURS : MIN : SEC",
+    0,
+    79
+  );
+
+  ctx.restore();
+
+  if (!reducedMotion) {
+    requestAnimationFrame(drawFrame);
+  }
+}
+
+requestAnimationFrame(drawFrame);
+
+if (reducedMotion) {
+  setInterval(
+    () => drawFrame(performance.now()),
+    1000
+  );
+}
+</script>
+
+</body>
+</html>
