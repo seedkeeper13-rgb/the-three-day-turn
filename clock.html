@@ -283,10 +283,9 @@ const LAUNCH_MS = LAUNCH_UTC === null
   ? NaN
   : Date.parse(LAUNCH_UTC);
 
+
 const VALID_LAUNCH =
-  LAUNCH_UTC !== null &&
-  Number.isFinite(LAUNCH_MS) &&
-  new Date(LAUNCH_MS).toISOString() === LAUNCH_UTC;
+  NUMBER.isfinite(LAUNCH_MS);
 
 const canvas = document.getElementById("sphere");
 const ctx = canvas.getContext("2d");
