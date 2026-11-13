@@ -222,12 +222,42 @@
   <h2>THE CLOCK OF RECOGNITION</h2>
   <p>31 Days of Preparation — Always Equals Infinity</p>
 
-  <iframe
-    src="clock.html"
-    title="The Three-Day Turn — Live Countdown Clock"
-    style="width:100%;height:1200px;border:1px solid #bda36d;border-radius:16px;background:#0b1520;"
-    loading="lazy">
-  </iframe>
+ <iframe
+  id="recognition-clock"
+  src="clock.html"
+  title="The Three-Day Turn - Live Countdown Clock"
+  style="width:100%;height:1200px;border:1px solid #bda36d;border-radius:16px;display:block;"
+  scrolling="no"
+  loading="lazy">
+</iframe>
+
+<script>
+(function () {
+  const frame = document.getElementById("recognition-clock");
+
+  frame.addEventListener("load", function () {
+    function fitClock() {
+      try {
+        const doc = frame.contentDocument;
+        if (!doc) return;
+
+        const height = Math.max(
+          doc.documentElement.scrollHeight,
+          doc.body.scrollHeight
+        );
+
+        frame.style.height = (height + 20) + "px";
+      } catch (error) {
+        console.warn("Clock resizing unavailable:", error);
+      }
+    }
+
+    fitClock();
+    setTimeout(fitClock, 500);
+    setTimeout(fitClock, 1500);
+  });
+})();
+</script>
 
   <p>
     <a href="clock.html">Open the Full Clock of Recognition</a>
